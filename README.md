@@ -1,9 +1,9 @@
-API for saving orders and sending email with order confirmations.
+API for saving orders and sending notifications to customers with by email.
 
 DLL script:
 CREATE TABLE IF NOT EXISTS orders
 (
-    number         VARCHAR(32)  NOT NULL,
+    number         VARCHAR(32)  PRIMARY KEY ,
     sum            NUMERIC      NOT NULL,
     creation_date  DATE         NOT NULL,
     customer_email VARCHAR(128) NOT NULL,
