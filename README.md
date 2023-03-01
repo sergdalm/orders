@@ -1,4 +1,4 @@
-API for saving orders and sending notifications to customers with by email.
+API for saving orders and sending notifications to customers by email.
 
 DLL script:
 CREATE TABLE IF NOT EXISTS orders
