@@ -29,11 +29,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    /**
-     * Get all orders
-     *
-     * @return all orders
-     */
     @GetMapping
     public ResponseEntity<List<OrderReadDto>> getAllOrder() {
         List<OrderReadDto> orders = orderService.getAllOrders();
@@ -54,7 +49,7 @@ public class OrderController {
     /**
      * Get specified order
      *
-     * @param orderNumber as year-month-day-order_number
+     * @param orderNumber as year-month-day-order_number, for example: "2023-03-01-5315"
      * @return order
      */
     @GetMapping("/{orderNumber}")
@@ -67,7 +62,13 @@ public class OrderController {
     /**
      * Create new order
      *
-     * @param orderCreateDto
+     * @param orderCreateDto Example of orderCreateDto:
+     *  {
+     *  "orderNumber": "2022-02-02-4646",
+     *  "sum": "1500.50",
+     *  "creationDate": "2022-02-02",
+     *  "customerEmail": "customer@gmail.com"
+     *  }
      * @return order
      */
     @PostMapping
@@ -79,7 +80,7 @@ public class OrderController {
     /**
      * Update customer email and resend notification on specified order
      *
-     * @param orderNumber
+     * @param orderNumber as year-month-day-order_number, for example: "2023-03-01-5315"
      * @param email
      * @return updated order
      */
@@ -94,7 +95,7 @@ public class OrderController {
     /**
      * Delete specified order
      *
-     * @param orderNumber
+     * @param orderNumber as year-month-day-order_number, for example: "2023-03-01-5315"
      */
     @DeleteMapping("/{orderNumber}")
     public ResponseEntity<?> deleteOrder(@PathVariable("orderNumber") String orderNumber) {

@@ -1,5 +1,6 @@
 package org.example.http.handler;
 
+import org.example.service.exception.OrderAlreadyExistsException;
 import org.example.service.exception.SendFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,5 +17,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         String massage = "Failed to send notification on order N " + exception.getOrderNumber() +
                 " by email " + exception.getCustomerEmail();
         return new ResponseEntity<>(massage, HttpStatus.BAD_GATEWAY);
+    }
+
+    @ExceptionHandler(value = {OrderAlreadyExistsException.class})
+    public ResponseEntity<String> handleEntityExistsException(OrderAlreadyExistsException exception) {
+        String massage = "Order with N " + exception.getOrderNumber() + " already exists";
+        return new ResponseEntity<>(massage, HttpStatus.CONFLICT);
     }
 }

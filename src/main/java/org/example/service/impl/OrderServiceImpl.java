@@ -9,6 +9,7 @@ import org.example.mapper.OrderReadMapper;
 import org.example.repository.OrderRepository;
 import org.example.service.MailService;
 import org.example.service.OrderService;
+import org.example.service.exception.OrderAlreadyExistsException;
 import org.example.service.exception.SendFailedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +51,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<OrderReadDto> create(OrderCreateDto orderCreateDto) {
         return Optional.of(orderCreateDto)
+                .filter(dto -> {
+                    if (orderRepository.findById(dto.getOrderNumber()).isEmpty()) {
+                        return true;
+                    } else {
+                        throw new OrderAlreadyExistsException(dto.getOrderNumber());
+                    }
+                })
                 .map(newOrderDto -> {
                     Order newOrder = orderCreateMapper.map(newOrderDto);
                     boolean isEmailSent = mailService.sendEmail(newOrder.getCustomerEmail(), newOrder.getNumber());

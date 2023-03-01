@@ -1,14 +1,21 @@
 package org.example.service.impl;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.example.service.MailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class MailServiceImpl implements MailService {
 
-    private final String testEmail = "@test-email.com";
+
+    private final String testEmail;
+
+    public MailServiceImpl(@Value("${test.email}") String testEmail) {
+        this.testEmail = testEmail;
+    }
 
     @Override
     public boolean sendEmail(String customerEmail, String orderNumber) {

@@ -29,14 +29,23 @@ public class OrderCreateDto {
             "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))-\\d+$")
     String orderNumber;
 
+    /**
+     * Sum of the order
+     */
     @NotNull
     @Positive
     BigDecimal sum;
 
+    /**
+     * Date of create the order
+     */
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate creationDate;
 
+    /**
+     * Email of the customer
+     */
     @NotEmpty
     @NotBlank
     @Email
